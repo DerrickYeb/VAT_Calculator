@@ -1,0 +1,101 @@
+﻿@model VatCalculatorApi.DAL.Models.UserInputsModel
+@{
+    ViewData["Title"] = "Home Page";
+}
+
+<div class="text-center">
+    <div class="card col-md-7 d-flex align-content-center justify-content-center w-100 h-100">
+        <div class="card-header bg-dark align-items-center">
+            <h5 style="color:white;">VALUE ADDED TAX</h5>
+        </div>
+        <div class="row row-cols-1 row-cols-md-2 g-4">
+            <div class="col">
+                <form id="vatcalculator" asp-action="Index" asp-controller="Home" method="post">
+                    <div class="card h-100">
+                        <div class="card-body">
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white">Quantity</span>
+                                <input type="number" class="form-control" asp-for="Quantity" min="0" id="quantity" placeholder="Goods or service" aria-label="Quantities" />
+                                <span class="input-group-text bg-dark text-white">.</span>
+                            </div>
+                            <div class="input-group mb-3">
+                                <span class="input-group-text bg-dark text-white">GHS</span>
+                                <input type="number" class="form-control" min="0" asp-for="Amount" id="amount" placeholder="Goods or service" aria-label="Goods and Services" />
+                                <span class="input-group-text bg-dark text-white">.00</span>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsFlatRate" /> @Html.DisplayNameFor(model => model.IsFlatRate)
+                                </label>
+                            </div>
+                            <div class="form-group form-check">
+                                <label class="form-check-label">
+                                    <input class="form-check-input" asp-for="IsStandardRate" /> @Html.DisplayNameFor(model => model.IsStandardRate)
+                                </label>
+                            </div>
+
+                        </div>
+
+                        <div class="card-footer">
+                            <button class="btn btn-block btn-danger" type="submit" id="btnSubmit" value="calulate">Calculate</button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="col">
+                <div class="card h-100">
+                    <div class="card-body">
+                        <h5 class="card-title">Payables</h5>
+                        <p class="card-text">
+                            <span class="form-label">Tax Payable</span>
+                           GHS @Html.DisplayTextFor(m => m.VAT)
+                        </p>
+                        <dl class="row">
+                           <dt class="col-sm-2">
+                             <label class="form-label">Nhil</label>
+                           </dt>
+                           <dd class="col-sm-10">
+                              GHS @Html.DisplayTextFor(model => model.Nhil)
+                           </dd>
+                           <dt class="col-sm-2">
+                               <label class="form-label">Getfund</label>
+                           </dt>
+                           <dd class="col-sm-10">
+                             GHS  @Html.DisplayTextFor(model => model.Getfund)
+                           </dd>
+                           <dt class="col-sm-2">
+                               <label class="form-label">Standard Rate</label>
+                           </dt>
+                           <dd class="col-sm-10">
+                              GHS @Html.DisplayTextFor(model => model.StandardRate)
+                           </dd>
+                           <dt class="col-sm-2">
+                               <label class="form-label">Flat Rate</label>
+                           </dt>
+                           <dd class="col-sm-10">
+                              GHS @Html.DisplayTextFor(model => model.FlatRate)
+                           </dd>
+                           <dt class="col-sm-2">
+                               <label class="form-label">Total VAT</label>
+                           </dt>
+                           <dd class="col-sm-10">
+                            GHS @Html.DisplayTextFor(m => m.TotalVat)
+                           </dd>
+                        </dl>
+                        <div class="card-footer">
+                            <article >
+                                <h4>Total VAT is the final total of both Standard and Flate rate respectivey</h4>
+                                <h4>Price x Quantity = total amount</h4>
+                                <h4>Nhil - 2.5%</h4>
+                                <h4>Getfund - 2.5%</h4>
+                            </article>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@section Scripts{ 
+   <script src="~/js/calculate.vat.js"></script>
+}
