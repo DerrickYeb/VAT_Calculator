@@ -16,9 +16,8 @@ namespace ValueAddedTaxApi.Controllers
     {
         private readonly ILogger<VatController> _logger;
         private readonly ICalculateVatRepository _repo;
-        public VatController(ILogger<VatController> logger,ICalculateVatRepository repo)
+        public VatController(ICalculateVatRepository repo)
         {
-            _logger = logger;
             _repo = repo;
         }
         [HttpPost("calculate/value/added/tax")]
